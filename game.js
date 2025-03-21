@@ -33,19 +33,27 @@ function updateProgress() {
     document.getElementById("progress").style.width = progress + "%";
 
     let plant = document.getElementById("plant");
-    plant.style.transform = `scale(${1 + tapCount / targetTaps})`;
+    
+    // Scale the plant based on progress
+    let scaleFactor = 1 + (tapCount / targetTaps);
+    plant.style.transform = `scale(${scaleFactor})`;
 
-    // Change plant image when fully grown
+    // Show full plant image when fully grown, otherwise keep seed
     if (tapCount >= targetTaps) {
-        plant.src = "full-plant.png"; // Swap to the final plant image
+        plant.src = "plant-full.png";
     }
 }
 
 function decayProgress() {
     if (tapCount > 0) {
-        tapCount -= 2; // Progress decays when not tapping
+        tapCount -= 2; // Reduce progress
         if (tapCount < 0) tapCount = 0;
         updateProgress();
+    }
+
+    let plant = document.getElementById("plant");
+    if (tapCount === 0) {
+        plant.src = "plant-seed.png"; // Reset to seed if progress is 0
     }
 }
 
@@ -56,9 +64,9 @@ function endGame() {
 
     if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
         document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
-        document.getElementById("plant").src = "plant-full.png"; // Ensure full-grown plant shows at the end
+        document.getElementById("plant").src = "plant-full.png";
     } else {
         document.getElementById("message").textContent = "Try again! Tap faster next time!";
-        document.getElementById("plant").src = "plant-seed.png"; // Reset to small plant if failed
+        document.getElementById("plant").src = "plant-seed.png"; // Reset to seed if failed
     }
 }

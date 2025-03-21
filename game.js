@@ -1,5 +1,5 @@
 let tapCount = 0;
-let targetTaps = 50;
+let targetTaps = 20;
 let timeLimit = 10;
 let timer;
 let decayInterval;
@@ -56,7 +56,7 @@ function endGame() {
 
     if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
         document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
-        document.getElementById("plant").src = "full-plant.png"; // Ensure full-grown plant shows at the end
+        document.getElementById("plant").src = "plant-full.png"; // Ensure full-grown plant shows at the end
     } else {
         document.getElementById("message").textContent = "Try again! Tap faster next time!";
         document.getElementById("plant").src = "plant-seed.png"; // Reset to small plant if failed

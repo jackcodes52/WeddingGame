@@ -1,5 +1,5 @@
 let tapCount = 0;
-let targetTaps = 20;
+let targetTaps = 10;
 let timeLimit = 10;
 let timer;
 let decayInterval;

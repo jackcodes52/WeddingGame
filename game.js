@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         tapCount++;
         updateProgress();
+        checkWinCondition();
     });
 });
 
@@ -55,12 +56,18 @@ function decayProgress() {
     }
 }
 
-function endGame() {
+function checkWinCondition() {
+    let timeElapsed = (Date.now() - startTime) / 1000;
+    if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
+        endGame(true);
+    }
+}
+
+function endGame(success = false) {
     clearTimeout(timer);
     clearInterval(decayInterval);
-    let timeElapsed = (Date.now() - startTime) / 1000;
-
-    if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
+    
+    if (success) {
         document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
         document.getElementById("plant").src = "plant-full.png";
     } else {

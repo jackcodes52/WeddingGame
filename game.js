@@ -41,6 +41,9 @@ function updateProgress() {
     // Show full plant image when fully grown, otherwise keep seed
     if (tapCount >= targetTaps) {
         plant.src = "plant-full.png";
+        document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
+        clearTimeout(timer);
+        clearInterval(decayInterval);
     }
 }
 

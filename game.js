@@ -34,6 +34,11 @@ function updateProgress() {
 
     let plant = document.getElementById("plant");
     plant.style.transform = `scale(${1 + tapCount / targetTaps})`;
+
+    // Change plant image when fully grown
+    if (tapCount >= targetTaps) {
+        plant.src = "full-plant.png"; // Swap to the final plant image
+    }
 }
 
 function decayProgress() {
@@ -51,7 +56,9 @@ function endGame() {
 
     if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
         document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
+        document.getElementById("plant").src = "full-plant.png"; // Ensure full-grown plant shows at the end
     } else {
         document.getElementById("message").textContent = "Try again! Tap faster next time!";
+        document.getElementById("plant").src = "small-plant.png"; // Reset to small plant if failed
     }
 }

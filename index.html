@@ -4,16 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grow the Plant!</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            margin-top: 20px;
+        }
+        #plant {
+            width: 100px;
+            height: 100px;
+            transition: transform 0.2s;
+        }
+        #tap-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        #progress-bar {
+            width: 100%;
+            height: 20px;
+            background: lightgray;
+            margin-top: 10px;
+            position: relative;
+        }
+        #progress {
+            height: 100%;
+            width: 0%;
+            background: green;
+            transition: width 0.5s linear;
+        }
+    </style>
 </head>
 <body>
     <h1>Tap to Grow the Plant!</h1>
     <div id="game-container">
-        <img id="plant" src="plant-seed.png" alt="Plant">
+        <img id="plant" src="https://via.placeholder.com/100" alt="Plant">
         <div id="progress-bar"><div id="progress"></div></div>
         <button id="tap-button">Tap!</button>
         <p id="message"></p>
     </div>
-    <script src="game.js"></script>
+    
+    <script>
+        let tapCount = 0;
+        let targetTaps = 50;
+        let timeLimit = 10;
+        let timer;
+        let decayInterval;
+        let startTime;
+
+        document.getElementById("tap-button").addEventListener("click", function() {
+            if (tapCount === 0) {
+                startGame();
+            }
+            tapCount++;
+            updateProgress();
+        });
+
+        function startGame() {
+            tapCount = 0;
+            startTime = Date.now();
+            timer = setTimeout(endGame, timeLimit * 1000);
+            decayInterval = setInterval(decayProgress, 1000);
+        }
+
+        function updateProgress() {
+            let progress = (tapCount / targetTaps) * 100;
+            document.getElementById("progress").style.width = progress + "%";
+            
+            let plant = document.getElementById("plant");
+            plant.style.transform = `scale(${1 + tapCount / targetTaps})`;
+        }
+
+        function decayProgress() {
+            if (tapCount > 0) {
+                tapCount -= 2; // Reduce progress when not tapping
+                if (tapCount < 0) tapCount = 0;
+                updateProgress();
+            }
+        }
+
+        function endGame() {
+            clearTimeout(timer);
+            clearInterval(decayInterval);
+            let timeElapsed = (Date.now() - startTime) / 1000;
+            
+            if (tapCount >= targetTaps && (tapCount / timeElapsed) >= 5) {
+                document.getElementById("message").textContent = "Congratulations! Your plant grew fully!";
+            } else {
+                document.getElementById("message").textContent = "Try again! Tap faster next time!";
+            }
+        }
+    </script>
 </body>
 </html>

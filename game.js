@@ -5,15 +5,12 @@ let timer;
 let decayInterval;
 let startTime;
 
-document.addEventListener("DOMContentLoaded", function () {
-    const tapButton = document.getElementById("tap-button");
-    tapButton.addEventListener("click", function() {
-        if (tapCount === 0) {
-            startGame();
-        }
-        tapCount++;
-        updateProgress();
-    });
+document.getElementById("tap-button").addEventListener("click", function() {
+    if (tapCount === 0) {
+        startGame();
+    }
+    tapCount++;
+    updateProgress();
 });
 
 function startGame() {

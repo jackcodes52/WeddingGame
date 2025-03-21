@@ -59,6 +59,6 @@ function endGame() {
         document.getElementById("plant").src = "full-plant.png"; // Ensure full-grown plant shows at the end
     } else {
         document.getElementById("message").textContent = "Try again! Tap faster next time!";
-        document.getElementById("plant").src = "small-plant.png"; // Reset to small plant if failed
+        document.getElementById("plant").src = "plant-seed.png"; // Reset to small plant if failed
     }
 }
